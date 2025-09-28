@@ -101,6 +101,9 @@
 </template>
 
 <script>
+import mountainImage from '../assets/mountain.jpeg';
+import oceanImage from '../assets/ocean.jpg';
+
 export default {
   name: 'HomePage',
   data() {
@@ -119,9 +122,9 @@ export default {
     },
     currentImageSrc() {
       if (this.selectedImage === 'mountain') {
-        return 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80';
+        return mountainImage;
       } else if (this.selectedImage === 'ocean') {
-        return 'https://plus.unsplash.com/premium_photo-1666286163385-abe05f0326c4?q=80&w=1075&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+        return oceanImage;
       }
       return '';
     }

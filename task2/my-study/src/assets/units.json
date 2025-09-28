@@ -1,0 +1,74 @@
+[
+  {
+    "code": "ICT10001",
+    "description": "Problem Solving with ICT",
+    "cp": "12.5",
+    "type": "Core"
+  },
+  {
+    "code": "COS10005",
+    "description": "Web Development",
+    "cp": "12.5",
+    "type": "Core"
+  },
+  {
+    "code": "INF10002",
+    "description": "Database Analysis and Design",
+    "cp": "12.5",
+    "type": "Core"
+  },
+  {
+    "code": "COS10009",
+    "description": "Introduction to Programming",
+    "cp": "12.5",
+    "type": "Core"
+  },
+  {
+    "code": "COS20001",
+    "description": "User-Centred Design",
+    "cp": "12.5",
+    "type": "Software Development"
+  },
+  {
+    "code": "TNE10005",
+    "description": "Network Administration",
+    "cp": "12.5",
+    "type": "Software Development"
+  },
+  {
+    "code": "COS20016",
+    "description": "Operating System Configuration",
+    "cp": "12.5",
+    "type": "Software Development"
+  },
+  {
+    "code": "INF20012",
+    "description": "Enterprise Systems",
+    "cp": "12.5",
+    "type": "Systems Analysis"
+  },
+  {
+    "code": "ACC10007",
+    "description": "Financial Information for Decision Making",
+    "cp": "12.5",
+    "type": "Systems Analysis"
+  },
+  {
+    "code": "INF20003",
+    "description": "Requirements Analysis and Modelling",
+    "cp": "12.5",
+    "type": "Systems Analysis"
+  },
+  {
+    "code": "ACC20014",
+    "description": "Management Decision Making",
+    "cp": "12.5",
+    "type": "Systems Analysis"
+  },
+  {
+    "code": "INF30001",
+    "description": "Systems Acquisition & Implementation Management",
+    "cp": "12.5",
+    "type": "Systems Analysis"
+  }
+]
