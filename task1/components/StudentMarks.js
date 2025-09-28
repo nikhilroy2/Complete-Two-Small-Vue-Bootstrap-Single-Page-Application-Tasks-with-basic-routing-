@@ -2,71 +2,52 @@
 Vue.component('student-marks', {
     data: function() {
         return {
-            students: [
-                { name: 'Amy', marks: 90 },
-                { name: 'Bill', marks: 80 },
-                { name: 'Casey', marks: 78 },
-                { name: 'David', marks: 85 },
-                { name: 'Emma', marks: 92 },
-                { name: 'Frank', marks: 88 },
-                { name: 'Grace', marks: 95 },
-                { name: 'Henry', marks: 82 },
-                { name: 'Ivy', marks: 89 },
-                { name: 'Jack', marks: 91 },
-                { name: 'Kate', marks: 87 },
-                { name: 'Leo', marks: 93 },
-                { name: 'Maya', marks: 86 },
-                { name: 'Noah', marks: 94 },
-                { name: 'Olivia', marks: 88 },
-                { name: 'Paul', marks: 90 },
-                { name: 'Quinn', marks: 85 },
-                { name: 'Ruby', marks: 92 },
-                { name: 'Sam', marks: 89 },
-                { name: 'Tina', marks: 87 },
-                { name: 'Uma', marks: 91 },
-                { name: 'Victor', marks: 88 },
-                { name: 'Wendy', marks: 93 },
-                { name: 'Xavier', marks: 86 },
-                { name: 'Yara', marks: 90 },
-                { name: 'Zoe', marks: 94 }
-            ],
+            perPage: 3,
             currentPage: 1,
-            itemsPerPage: 3
+            units: [
+                { name: "Amy",   mark: 90 },
+                { name: "Bill",  mark: 80 },
+                { name: "Casey", mark: 78 },
+                { name: "David", mark: 84 },
+                { name: "Emma",  mark: 92 },
+                { name: "Frank", mark: 67 },
+                { name: "Gina",  mark: 74 },
+                { name: "Harry", mark: 88 },
+                { name: "Ivy",   mark: 95 },
+                { name: "Jack",  mark: 69 },
+                { name: "Karen", mark: 81 },
+                { name: "Liam",  mark: 76 },
+                { name: "Maya",  mark: 83 },
+                { name: "Noah",  mark: 59 },
+                { name: "Olivia",mark: 91 },
+                { name: "Paul",  mark: 72 },
+                { name: "Quinn", mark: 85 },
+                { name: "Rachel",mark: 77 },
+                { name: "Sam",   mark: 63 },
+                { name: "Tina",  mark: 87 },
+                { name: "Umar",  mark: 58 },
+                { name: "Vicky", mark: 79 },
+                { name: "Will",  mark: 94 },
+                { name: "Xavier",mark: 66 },
+                { name: "Yasmin",mark: 70 },
+                { name: "Zack",  mark: 82 }
+            ]
         }
     },
     computed: {
+        getContent: function () {
+            let current = this.currentPage * this.perPage;
+            let start = current - this.perPage;
+            return this.units.slice(start, current);
+        },
         totalPages() {
-            return Math.ceil(this.students.length / this.itemsPerPage);
-        },
-        paginatedStudents() {
-            const start = (this.currentPage - 1) * this.itemsPerPage;
-            const end = start + this.itemsPerPage;
-            return this.students.slice(start, end);
-        },
-        pageNumbers() {
-            const pages = [];
-            const total = this.totalPages;
-            const current = this.currentPage;
-            
-            // Always show first page
-            if (total > 0) pages.push(1);
-            
-            // Show pages around current page
-            for (let i = Math.max(2, current - 1); i <= Math.min(total - 1, current + 1); i++) {
-                if (!pages.includes(i)) pages.push(i);
-            }
-            
-            // Always show last page if different from first
-            if (total > 1) pages.push(total);
-            
-            return pages;
+            return Math.ceil(this.units.length / this.perPage);
         }
     },
     methods: {
-        goToPage(page) {
-            if (page >= 1 && page <= this.totalPages) {
-                this.currentPage = page;
-            }
+        //sets the clicked page
+        clickCallback: function (pageNum) {
+            this.currentPage = Number(pageNum);
         },
         prevPage() {
             if (this.currentPage > 1) {
@@ -86,53 +67,34 @@ Vue.component('student-marks', {
             <!-- Student Table -->
             <div class="table-responsive">
                 <table class="table table-striped">
-                    <thead>
+                    <caption>Semester 1, 2025</caption>
+                    <thead class="table-dark">
                         <tr>
-                            <th class="text-start">Student Name</th>
-                            <th class="text-end">Marks</th>
+                            <th scope="col" id="sName">Student Name</th>
+                            <th scope="col" id="sMarks">Marks</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr v-for="student in paginatedStudents" :key="student.name">
-                            <td class="text-start">{{ student.name }}</td>
-                            <td class="text-end">{{ student.marks }}</td>
+                    <tbody class="table-group-divider">
+                        <tr v-for="unit in getContent" :key="unit.name">
+                            <td headers="sName">{{ unit.name }}</td>
+                            <td headers="sMarks">{{ unit.mark }}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- Pagination -->
-            <nav aria-label="Student marks pagination">
-                <ul class="pagination">
-                    <li class="page-item" :class="{ disabled: currentPage === 1 }">
-                        <button class="page-link" @click="prevPage" :disabled="currentPage === 1">
-                            Prev Page
-                        </button>
-                    </li>
-                    
-                    <li v-for="page in pageNumbers" :key="page" class="page-item" :class="{ active: page === currentPage }">
-                        <button class="page-link" @click="goToPage(page)">
-                            {{ page }}
-                        </button>
-                    </li>
-                    
-                    <li class="page-item" v-if="totalPages > 3">
-                        <span class="page-link">...</span>
-                    </li>
-                    
-                    <li class="page-item" :class="{ active: currentPage === totalPages }" v-if="totalPages > 1">
-                        <button class="page-link" @click="goToPage(totalPages)">
-                            {{ totalPages }}
-                        </button>
-                    </li>
-                    
-                    <li class="page-item" :class="{ disabled: currentPage === totalPages }">
-                        <button class="page-link" @click="nextPage" :disabled="currentPage === totalPages">
-                            Next Page
-                        </button>
-                    </li>
-                </ul>
-            </nav>
+            <!-- Vue Paginate template -->
+            <paginate 
+                :page-count="totalPages"    
+                :page-range="6" 
+                :margin-pages="1"
+                :click-handler="clickCallback" 
+                :prev-text="'Prev Page'" 		
+                :next-text="'Next Page'" 
+                :container-class="'pagination'" 
+                :active-class="'currentPage'"
+            >
+            </paginate>
         </div>
     `
 });
