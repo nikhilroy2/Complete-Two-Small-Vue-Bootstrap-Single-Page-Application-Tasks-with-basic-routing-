@@ -1,5 +1,5 @@
-// Define components first
-const NameTest = {
+// NameTest Component - String test functionality
+Vue.component('name-test', {
     data: function() {
         return {
             name: 'Amy',
@@ -41,9 +41,10 @@ const NameTest = {
             </div>
         </div>
     `
-};
+});
 
-const PostManagement = {
+// PostManagement Component - Status post management
+Vue.component('post-management', {
     data: function() {
         return {
             statusText: 'Task 10.1',
@@ -57,7 +58,7 @@ const PostManagement = {
     methods: {
         addStatus() {
             if (this.statusText.trim()) {
-                this.statusUpdates.push({
+                this.statusUpdates.unshift({
                     id: this.nextId++,
                     text: this.statusText.trim()
                 });
@@ -122,9 +123,10 @@ const PostManagement = {
             </div>
         </div>
     `
-};
+});
 
-const StudentMarks = {
+// StudentMarks Component - Student marks table with pagination
+Vue.component('student-marks', {
     data: function() {
         return {
             students: [
@@ -235,13 +237,11 @@ const StudentMarks = {
                         </button>
                     </li>
                     
-                    <template v-for="page in pageNumbers" :key="page">
-                        <li class="page-item" :class="{ active: page === currentPage }">
-                            <button class="page-link" @click="goToPage(page)">
-                                {{ page }}
-                            </button>
-                        </li>
-                    </template>
+                    <li v-for="page in pageNumbers" :key="page" class="page-item" :class="{ active: page === currentPage }">
+                        <button class="page-link" @click="goToPage(page)">
+                            {{ page }}
+                        </button>
+                    </li>
                     
                     <li class="page-item" v-if="totalPages > 3">
                         <span class="page-link">...</span>
@@ -262,13 +262,13 @@ const StudentMarks = {
             </nav>
         </div>
     `
-};
+});
 
 // Vue 2 Router Configuration
 const routes = [
-    { path: '/', component: NameTest },
-    { path: '/post-management', component: PostManagement },
-    { path: '/student-marks', component: StudentMarks }
+    { path: '/', component: Vue.component('name-test') },
+    { path: '/post-management', component: Vue.component('post-management') },
+    { path: '/student-marks', component: Vue.component('student-marks') }
 ];
 
 const router = new VueRouter({
